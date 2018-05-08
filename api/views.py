@@ -15,6 +15,8 @@ from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
 from .permissions import IsOwner
 from rest_framework.filters import OrderingFilter, SearchFilter
 
+#Complete ME!
+class RegisterView():
 
 class RestaurantListView(ListAPIView):
     queryset = Restaurant.objects.all()

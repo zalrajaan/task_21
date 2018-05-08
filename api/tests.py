@@ -9,6 +9,7 @@ from .views import (
     RestaurantCreateView,
     RestaurantUpdateView,
     RestaurantDeleteView,
+    RegisterView,
 )
 
 class RestaurantAPITest(TestCase):
@@ -55,6 +56,10 @@ class RestaurantAPITest(TestCase):
             price=1.750,
             restaurant=self.restaurant_1,
             )
+        self.user_data = {
+            "username": "noobnoob",
+            "password": "adminadmin"
+        }
 
         self.restaurant_2 = Restaurant.objects.create(
             owner=self.user2,
@@ -72,6 +77,14 @@ class RestaurantAPITest(TestCase):
             "opening_time":"00:01:00",
             "closing_time":"23:59:00",
         }
+
+    def test_register_view(self):
+        register_url = reverse("api-register")
+        request = self.factory.post(register_url, data=self.user_data)
+        response = RegisterView.as_view()(request)
+        
+        self.assertEqual(response.status_code, 201)
+        self.assertEqual(User.objects.count(), 4)
 
     def test_restaurant_list_view(self):
         list_url = reverse("api-list")
